@@ -1,0 +1,9 @@
+# 改行コードの統一（リポジトリ内は LF）
+* text=auto eol=lf
+
+# バイナリ（改行変換しない）
+*.png binary
+*.pdf binary
+*.parquet binary
+*.jpg binary
+*.gif binary

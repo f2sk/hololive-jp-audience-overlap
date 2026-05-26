@@ -1,0 +1,49 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 旧POCディレクトリ（最終JP版に機能・分析ともに吸収済み）
+scripts/
+reports/
+docs/
+logs/
+
+# 生データ（個別YouTubeチャネルIDを含むため非公開、準個人情報相当）
+data/chats/
+data/chats_unused/
+data/matrix.parquet
+data/matrix_jp.parquet
+
+# 旧POCイテレーション
+data/scan/
+data/urls/
+data/urls_jp_old/
+data/urls_jp_prev_v2/
+data/poc3_selection_log.md
+data/plots/*.png
+data/plots/*.md
+
+# 実行ログ・デバッグ出力
+*.log
+data/*.txt
+
+# Quarto / LaTeX 中間ファイル
+*.aux
+*.fff
+*.ttt
+*.toc
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+.quarto/
+_freeze/

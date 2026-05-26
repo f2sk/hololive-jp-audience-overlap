@@ -1,0 +1,7 @@
+yt-dlp
+pandas
+pyarrow
+upsetplot
+matplotlib
+networkx
+scipy
