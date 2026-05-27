@@ -197,19 +197,72 @@ def main():
     jac_sorted = sorted(jaccards, key=lambda x: -x["jaccard"])
     out_sorted = sorted(jaccards, key=lambda x: -x["outflow_rate"])
 
-    # 流出マップ図（横棒、上位15）
-    top15 = out_sorted[:15]
-    fig, ax = plt.subplots(figsize=(11, 7))
-    names = [r["name"] for r in top15][::-1]
-    rates = [r["outflow_rate"] * 100 for r in top15][::-1]
-    colors = [UNIT_COLOR.get(r["unit"], "#888") for r in top15][::-1]
-    ax.barh(names, rates, color=colors, edgecolor="black", linewidth=0.4)
-    ax.set_xlabel(f"{target_name}参加者のうち当該タレントも視聴している割合（%）", fontsize=11)
-    ax.set_title(f"{target_name}参加者のタレント別視聴率（流出マップ・上位15）",
+    # Jaccard 上位10 を棒グラフ化（規模補正済みのペアワイズ強度を視覚化）
+    top10_jac = jac_sorted[:10]
+    fig, ax = plt.subplots(figsize=(11, 6.5))
+    names = [r["name"] for r in top10_jac][::-1]
+    vals = [r["jaccard"] * 100 for r in top10_jac][::-1]
+    colors = [UNIT_COLOR.get(r["unit"], "#888") for r in top10_jac][::-1]
+    ax.barh(names, vals, color=colors, edgecolor="black", linewidth=0.4)
+    ax.set_xlabel(f"{target_name} と当該タレントの Jaccard 係数（%）", fontsize=11)
+    ax.set_title(f"{target_name} と他タレントのペア重複（Jaccard 上位10、規模補正済み）",
                  fontsize=13, fontweight="bold")
     ax.grid(alpha=0.3, axis="x")
+    for i, v in enumerate(vals):
+        ax.text(v + 0.05, i, f"{v:.2f}%", va="center", fontsize=9, color="#333")
     fig.tight_layout()
-    fig.savefig(out_dir / "outflow_map.png", dpi=140, bbox_inches="tight")
+    fig.savefig(out_dir / "jaccard_top10.png", dpi=140, bbox_inches="tight")
+    plt.close(fig)
+
+    # 視聴者共有率 vs Jaccard 散布図（規模効果と結合強度の対比を可視化）
+    import matplotlib.patches as mpatches
+    try:
+        from adjustText import adjust_text
+        HAS_ADJUST = True
+    except ImportError:
+        HAS_ADJUST = False
+
+    fig, ax = plt.subplots(figsize=(14, 10))
+    texts = []
+    xs_data, ys_data = [], []
+    # マーカーサイズは共視聴者数 |A∩B| に比例（最小50〜最大1200）
+    max_inter = max(r["intersection"] for r in jaccards)
+    min_inter = min(r["intersection"] for r in jaccards)
+    for r in jaccards:
+        color = UNIT_COLOR.get(r["unit"], "#888")
+        x = r["outflow_rate"] * 100; y = r["jaccard"] * 100
+        # 線形スケール（共視聴者数比例）
+        size = 80 + (r["intersection"] - min_inter) / (max_inter - min_inter + 1e-9) * 1200
+        ax.scatter(x, y, s=size, c=color, alpha=0.7, edgecolor="black", linewidth=0.7, zorder=3)
+        t = ax.annotate(r["name"], (x, y), fontsize=13, fontweight="bold",
+                        alpha=0.95, zorder=4)
+        texts.append(t)
+        xs_data.append(x); ys_data.append(y)
+
+    # 軸範囲をデータに合わせて設定（視聴者共有率はマリン等で大きくなりやすいが、Jaccardはタイトに）
+    x_max = max(xs_data) * 1.10
+    y_max = max(ys_data) * 1.15
+    ax.set_xlim(0, x_max); ax.set_ylim(0, y_max)
+
+    ax.set_xlabel(f"{target_name} 視点での当該タレントへの視聴者共有率（%）", fontsize=14)
+    ax.set_ylabel(f"Jaccard 係数（%）", fontsize=14)
+    ax.set_title(f"{target_name} と他34タレント: 視聴者共有率 × Jaccard 散布図\n"
+                 f"マーカーサイズ=共視聴者数。右=規模効果で共有率高め / 上=規模補正済みでも強い結合",
+                 fontsize=13, fontweight="bold")
+    ax.tick_params(axis="both", labelsize=12)
+    ax.grid(alpha=0.3, zorder=0)
+
+    legend_patches = [mpatches.Patch(color=col, label=u) for u, col in UNIT_COLOR.items()]
+    ax.legend(handles=legend_patches, loc="lower right", ncol=2, fontsize=11, frameon=True)
+
+    # ラベル衝突回避（adjustText が利用可能なら使用）
+    if HAS_ADJUST:
+        adjust_text(texts, xs_data, ys_data, ax=ax,
+                    expand_points=(1.3, 1.3), expand_text=(1.1, 1.2),
+                    arrowprops=dict(arrowstyle="-", color="#888", lw=0.5, alpha=0.5))
+
+    fig.tight_layout()
+    fig.savefig(out_dir / "metric_scatter.png", dpi=140, bbox_inches="tight")
     plt.close(fig)
 
     # ペア順位（全 595中）
@@ -232,26 +285,8 @@ def main():
                 "jaccard": jac, "intersection": c,
             })
 
-    # 3項 lift (target × X × Y)
-    triples = []
-    for i, j in combinations(range(n), 2):
-        if i == i_t or j == i_t:
-            continue
-        B = arr[:, i]; C_arr = arr[:, j]
-        AB = int((A & B).sum())
-        if AB < 100:
-            continue
-        AC_marginal = C_arr.sum() / N
-        ABC = int((A & B & C_arr).sum())
-        PAB = AB / N
-        lift = (ABC / N) / (PAB * AC_marginal) if PAB * AC_marginal > 0 else 0
-        triples.append({
-            "x": keys[i], "y": keys[j],
-            "x_name": MEMBERS_JP[keys[i]]["name"],
-            "y_name": MEMBERS_JP[keys[j]]["name"],
-            "lift": lift, "abc": ABC, "ab": AB,
-        })
-    triples.sort(key=lambda x: -x["lift"])
+    # 3項 lift は小規模 B・C で値が増幅されてノイズに支配されるため、
+    # 個別レポートでは指標として採用しない（過去版では §2.3 にあった）
 
     # --------------------------------------------------------------
     # 3. ファン構造分解
@@ -474,40 +509,37 @@ def main():
 
     md.append("## 2. 重複ネットワーク\n")
     md.append("### 2.1 Jaccard 上位10タレント\n")
-    md.append(f"{target_name}と他タレントとのペアJaccard係数。順位は全595ペア中の順位。\n")
-    md.append("| 順位 | タレント | ユニット | Jaccard | 共視聴者数 | 流出率 |\n|---:|---|---|---:|---:|---:|")
+    md.append(f"{target_name}と他タレントとのペアJaccard係数（規模補正済み）。"
+              f"$|A \\cap B|/|A \\cup B|$ で計算し、両タレントの規模差に依存しない結合強度を示す。"
+              f"順位は全595ペア中の順位。\n")
+    md.append(f"![Jaccard 上位10](../data/plots/jp/individual_{TARGET}/jaccard_top10.png)\n")
+    md.append("| 順位 | タレント | ユニット | Jaccard | 共視聴者数 |\n|---:|---|---|---:|---:|")
     for r in target_ranks[:10]:
         md.append(f"| {r['rank']} | {r['partner_name']} | {r['partner_unit']} | "
-                  f"{r['jaccard']*100:.2f}% | {r['intersection']:,} | "
-                  f"{r['intersection']/A_total*100:.1f}% |")
+                  f"{r['jaccard']*100:.2f}% | {r['intersection']:,} |")
     md.append("")
 
-    md.append("### 2.2 流出マップ（参加率上位15）\n")
-    md.append(f"{target_name}参加者のうち、他タレントの配信にも参加していた割合の上位。"
-              f"絶対人数が多い人気タレントが上位に来る傾向があり、Jaccard上位とは異なる切り口。\n")
-    md.append(f"![流出マップ](../data/plots/jp/individual_{TARGET}/outflow_map.png)\n")
-    md.append("| 順位 | タレント | 流出率 | 共視聴者数 | Jaccard |\n|---:|---|---:|---:|---:|")
+    md.append(f"### 2.2 視聴者共有率上位と 視聴者共有率 × Jaccard 散布図\n")
+    md.append(f"**{target_name}視点での他タレントへの視聴者共有率** = $|A \\cap B|/|A|$、"
+              f"すなわち「{target_name}の参加者のうち、当該タレント B にも参加した割合」。"
+              f"**視聴者共有率は B の規模に比例するため、絶対値は B が大規模であるほど自然に高くなる**。"
+              f"以下の散布図では、視聴者共有率（X軸）と Jaccard（Y軸）を同時にプロットする。"
+              f"**右方向に位置 = 規模効果で視聴者共有率が押し上げられている**、"
+              f"**上方向に位置 = 規模補正済みでも強い結合** と読める。\n")
+    md.append(f"![視聴者共有率 × Jaccard 散布図](../data/plots/jp/individual_{TARGET}/metric_scatter.png)\n")
+    md.append(f"**視聴者共有率上位15**: 巨大タレント（マリン・スバル・すいせい等）が上位を占めるのは規模効果。"
+              f"その中に非巨大タレントが食い込む場合は、Jaccard でも上位にあるか確認すると規模補正済みの結合強度が判断できる。\n")
+    md.append("| 順位 | タレント | 視聴者共有率 | 共視聴者数 | Jaccard |\n|---:|---|---:|---:|---:|")
     for i, r in enumerate(out_sorted[:15], 1):
         md.append(f"| {i} | {r['name']} | {r['outflow_rate']*100:.1f}% | "
                   f"{r['intersection']:,} | {r['jaccard']*100:.2f}% |")
     md.append("")
 
-    md.append("### 2.3 3項 lift 上位10（共起の強い3者組）\n")
-    md.append(f"$\\text{{lift}} = P({target_name} \\cap X \\cap Y) / (P({target_name} \\cap X) \\cdot P(Y))$。"
-              f"1.0=独立、値が大きいほど3者の同時参加が独立予測値より集中している。"
-              f"$|{target_name} \\cap X| \\geq 100$ のペアを対象。\n")
-    md.append("| # | X | Y | lift | 3項共視聴 | (target,X) 共視聴 |\n|---:|---|---|---:|---:|---:|")
-    for i, t in enumerate(triples[:10], 1):
-        md.append(f"| {i} | {t['x_name']} | {t['y_name']} | {t['lift']:.2f} | {t['abc']:,} | {t['ab']:,} |")
-    md.append("")
-    md.append("**注意**: lift 値が非常に高いペアは小規模かつニッチな同質サブグループを示している。"
-              "大規模タレント同士のペアでは lift 値は相対的に低くなる（分母が大きいため）。\n")
-
     md.append("## 3. ファン構造分解\n")
     md.append("### 3.1 ユニット別重複\n")
     md.append(f"{target_name}参加者の中で各ユニットのタレントいずれかに参加した人の割合と、"
               f"当該ユニット内タレントとの平均ペアJaccard。\n")
-    md.append("| ユニット | 人数 | 流出率 | 共視聴者数 | 平均ペアJaccard |\n|---|---:|---:|---:|---:|")
+    md.append("| ユニット | 人数 | 視聴者共有率 | 共視聴者数 | 平均ペアJaccard |\n|---|---:|---:|---:|---:|")
     for s in unit_stats:
         md.append(f"| {s['unit']} | {s['n_members']} | {s['outflow_rate']:.1f}% | "
                   f"{s['outflow_count']:,} | {s['mean_pair_jaccard']:.2f}% |")
@@ -515,7 +547,7 @@ def main():
 
     md.append("### 3.2 活動年数（世代）別重複\n")
     md.append(f"{target_name}参加者の各世代タレント群への重複度。\n")
-    md.append("| 世代 | 人数 | 流出率 | 平均ペアJaccard |\n|---|---:|---:|---:|")
+    md.append("| 世代 | 人数 | 視聴者共有率 | 平均ペアJaccard |\n|---|---:|---:|---:|")
     for s in age_stats:
         md.append(f"| {s['label']} | {s['n_members']} | {s['outflow_rate']:.1f}% | "
                   f"{s['mean_pair_jaccard']:.2f}% |")
@@ -523,7 +555,7 @@ def main():
 
     md.append("### 3.3 登録者規模別重複\n")
     md.append(f"{target_name}参加者の規模別タレント群への重複度。\n")
-    md.append("| 規模 | 人数 | 流出率 | 平均ペアJaccard |\n|---|---:|---:|---:|")
+    md.append("| 規模 | 人数 | 視聴者共有率 | 平均ペアJaccard |\n|---|---:|---:|---:|")
     for s in scale_stats:
         md.append(f"| {s['label']} | {s['n_members']} | {s['outflow_rate']:.1f}% | "
                   f"{s['mean_pair_jaccard']:.2f}% |")
@@ -585,7 +617,7 @@ def main():
     md.append(f"  チャット参加コア層は {A_total:,}人で参加率 {participation_rate:.2f}%。")
     md.append(f"- 専属ファンは {exclusive_rate:.1f}%、平均複推し数は {mean_multi:.2f}人。")
     md.append(f"- Jaccard 最高ペアは {target_ranks[0]['partner_name']}（{target_ranks[0]['jaccard']*100:.2f}%、全595ペア中{target_ranks[0]['rank']}位）。")
-    md.append(f"- 流出絶対数では人気古参（{out_sorted[0]['name']} {out_sorted[0]['outflow_rate']*100:.1f}%、"
+    md.append(f"- 視聴者共有率絶対数では人気古参（{out_sorted[0]['name']} {out_sorted[0]['outflow_rate']*100:.1f}%、"
               f"{out_sorted[1]['name']} {out_sorted[1]['outflow_rate']*100:.1f}%）が上位だが、"
               f"Jaccard では同世代・同規模タレント（{target_ranks[0]['partner_name']}、{target_ranks[1]['partner_name']}）が上位。")
     md.append(f"- ハブ性指標は弱め（上位30以内ペアは {n_top30} 組）、")
