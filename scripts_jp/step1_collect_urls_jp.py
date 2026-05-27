@@ -65,7 +65,11 @@ MEMORIAL_RE = re.compile(
     r"誕生日|バースデー|birthday|記念|周年|anniversary|生誕|"
     r"デビュー|debut|卒業|graduation|"
     r"フェス|festival|fes|コンサート|concert|(?<!ホロ)(?<!ド)ライブ|live.*tour|"
-    r"3dお披露目|3dlive|立体|お披露目|耐久",
+    r"3dお披露目|3dlive|立体|お披露目|耐久|"
+    # 告知・お知らせ系（非定常的な告知でファン以外の流入を呼ぶ可能性）
+    r"告知|お知らせ|重大|発表配信|"
+    # フリーチャット（恒常的なチャット部屋でリプレイなし）
+    r"フリーチャット|フリチャ",
     re.IGNORECASE,
 )
 
@@ -98,7 +102,23 @@ CONTINUATION_RE = re.compile(
 MULTI_SLASH_COLLAB_RE = re.compile(r"【[^【】]*/[^【】]*/[^【】]*】")
 
 COLLAB_KEYWORDS_RE = re.compile(
-    r"コラボ|collab|無礼講|同時視聴|スパチャ読み",
+    r"コラボ|collab|無礼講|同時視聴|スパチャ読み|"
+    # 内部コラボ示唆ワード
+    r"ホロメン|"
+    # 凸待ち系（他メンバー突発ゲスト型）
+    r"凸待|凸ち|逆凸|凸る配信|"
+    # 大会・対抗戦系（複数メンバー参加）
+    r"対抗戦|トーナメント|(?<!ホロ)(?<!ライブ)(?<!fes)杯|"
+    # 「N人で」「N人組」「Nメン」
+    r"[2-9]人で|[2-9]人組|[2-9]メン(?!タ)",
+    re.IGNORECASE,
+)
+
+# ホロ系内部企画ハッシュタグの汎用検出（#ホロライブ/#hololive 自体は除外）
+# 個別のコラボハッシュタグは COLLAB_HASHTAG_RE で列挙し、ここでは
+# 「#ホロ〇〇」「＃ホロ〇〇」全般を捕捉する。
+HOLO_HASHTAG_GENERIC_RE = re.compile(
+    r"[#＃]ホロ(?!ライブ|live)",
     re.IGNORECASE,
 )
 
@@ -197,6 +217,8 @@ def is_collab(nfkc_title: str, key: str) -> tuple[bool, str]:
         return True, "コラボキーワード"
     if COLLAB_HASHTAG_RE.search(nfkc_title):
         return True, "コラボハッシュタグ"
+    if HOLO_HASHTAG_GENERIC_RE.search(nfkc_title):
+        return True, "ホロ系内部企画ハッシュタグ"
     if MULTI_SLASH_COLLAB_RE.search(nfkc_title):
         return True, "末尾括弧に複数名スラッシュ区切り"
     other_members = [k for k in MEMBER_NAME_PATTERNS if k != key]
