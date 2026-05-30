@@ -7,65 +7,65 @@
 
 ## 0期生
 
-- **[ときのそら](individual_sora_jp.md)** — 参加率 0.42%, 専属 21.8%, 最強ペア: AZKi 10.04% (全体67位)
-- **[ロボ子さん](individual_roboco_jp.md)** — 参加率 0.36%, 専属 15.0%, 最強ペア: 桃鈴ねね 9.52% (全体89位)
-- **[AZKi](individual_azki_jp.md)** — 参加率 1.00%, 専属 22.5%, 最強ペア: 雪花ラミィ 13.63% (全体9位)
-- **[星街すいせい](individual_suisei_jp.md)** — 参加率 0.77%, 専属 41.9%, 最強ペア: さくらみこ 12.45% (全体16位)
-- **[さくらみこ](individual_miko_jp.md)** — 参加率 0.90%, 専属 33.3%, 最強ペア: 大空スバル 14.90% (全体5位)
+- **[ときのそら](individuals_jp/individual_sora_jp.md)** — 参加率 0.42%, 専属 21.8%, 最強ペア: AZKi 10.04% (全体67位)
+- **[ロボ子さん](individuals_jp/individual_roboco_jp.md)** — 参加率 0.36%, 専属 15.0%, 最強ペア: 桃鈴ねね 9.52% (全体89位)
+- **[AZKi](individuals_jp/individual_azki_jp.md)** — 参加率 1.00%, 専属 22.5%, 最強ペア: 雪花ラミィ 13.63% (全体9位)
+- **[星街すいせい](individuals_jp/individual_suisei_jp.md)** — 参加率 0.77%, 専属 41.9%, 最強ペア: さくらみこ 12.45% (全体16位)
+- **[さくらみこ](individuals_jp/individual_miko_jp.md)** — 参加率 0.90%, 専属 33.3%, 最強ペア: 大空スバル 14.90% (全体5位)
 
 ## 1期生
 
-- **[白上フブキ](individual_fubuki_jp.md)** — 参加率 0.35%, 専属 23.6%, 最強ペア: 大神ミオ 13.86% (全体8位)
-- **[夏色まつり](individual_matsuri_jp.md)** — 参加率 0.62%, 専属 25.0%, 最強ペア: 大神ミオ 11.06% (全体32位)
-- **[アキロゼ](individual_aki_jp.md)** — 参加率 0.50%, 専属 37.3%, 最強ペア: ロボ子さん 6.34% (全体383位)
+- **[白上フブキ](individuals_jp/individual_fubuki_jp.md)** — 参加率 0.35%, 専属 23.6%, 最強ペア: 大神ミオ 13.86% (全体8位)
+- **[夏色まつり](individuals_jp/individual_matsuri_jp.md)** — 参加率 0.62%, 専属 25.0%, 最強ペア: 大神ミオ 11.06% (全体32位)
+- **[アキロゼ](individuals_jp/individual_aki_jp.md)** — 参加率 0.50%, 専属 37.3%, 最強ペア: ロボ子さん 6.34% (全体383位)
 
 ## 2期生
 
-- **[百鬼あやめ](individual_ayame_jp.md)** — 参加率 0.83%, 専属 31.0%, 最強ペア: 大神ミオ 12.17% (全体19位)
-- **[大空スバル](individual_subaru_jp.md)** — 参加率 0.96%, 専属 23.0%, 最強ペア: 猫又おかゆ 17.62% (全体1位)
+- **[百鬼あやめ](individuals_jp/individual_ayame_jp.md)** — 参加率 0.83%, 専属 31.0%, 最強ペア: 大神ミオ 12.17% (全体19位)
+- **[大空スバル](individuals_jp/individual_subaru_jp.md)** — 参加率 0.96%, 専属 23.0%, 最強ペア: 猫又おかゆ 17.62% (全体1位)
 
 ## ゲーマーズ
 
-- **[大神ミオ](individual_mio_jp.md)** — 参加率 0.90%, 専属 16.6%, 最強ペア: 大空スバル 15.50% (全体3位)
-- **[猫又おかゆ](individual_okayu_jp.md)** — 参加率 0.68%, 専属 23.2%, 最強ペア: 大空スバル 17.62% (全体1位)
-- **[戌神ころね](individual_korone_jp.md)** — 参加率 0.58%, 専属 26.0%, 最強ペア: 猫又おかゆ 13.88% (全体7位)
+- **[大神ミオ](individuals_jp/individual_mio_jp.md)** — 参加率 0.90%, 専属 16.6%, 最強ペア: 大空スバル 15.50% (全体3位)
+- **[猫又おかゆ](individuals_jp/individual_okayu_jp.md)** — 参加率 0.68%, 専属 23.2%, 最強ペア: 大空スバル 17.62% (全体1位)
+- **[戌神ころね](individuals_jp/individual_korone_jp.md)** — 参加率 0.58%, 専属 26.0%, 最強ペア: 猫又おかゆ 13.88% (全体7位)
 
 ## 3期生
 
-- **[兎田ぺこら](individual_pekora_jp.md)** — 参加率 0.64%, 専属 29.7%, 最強ペア: 宝鐘マリン 16.12% (全体2位)
-- **[不知火フレア](individual_flare_jp.md)** — 参加率 0.39%, 専属 24.2%, 最強ペア: 白銀ノエル 7.65% (全体242位)
-- **[白銀ノエル](individual_noel_jp.md)** — 参加率 0.38%, 専属 19.1%, 最強ペア: 雪花ラミィ 12.03% (全体20位)
-- **[宝鐘マリン](individual_marine_jp.md)** — 参加率 0.55%, 専属 36.0%, 最強ペア: 兎田ぺこら 16.12% (全体2位)
+- **[兎田ぺこら](individuals_jp/individual_pekora_jp.md)** — 参加率 0.64%, 専属 29.7%, 最強ペア: 宝鐘マリン 16.12% (全体2位)
+- **[不知火フレア](individuals_jp/individual_flare_jp.md)** — 参加率 0.39%, 専属 24.2%, 最強ペア: 白銀ノエル 7.65% (全体242位)
+- **[白銀ノエル](individuals_jp/individual_noel_jp.md)** — 参加率 0.38%, 専属 19.1%, 最強ペア: 雪花ラミィ 12.03% (全体20位)
+- **[宝鐘マリン](individuals_jp/individual_marine_jp.md)** — 参加率 0.55%, 専属 36.0%, 最強ペア: 兎田ぺこら 16.12% (全体2位)
 
 ## 4期生
 
-- **[角巻わため](individual_watame_jp.md)** — 参加率 0.55%, 専属 25.3%, 最強ペア: 大神ミオ 10.77% (全体39位)
-- **[常闇トワ](individual_towa_jp.md)** — 参加率 0.45%, 専属 29.0%, 最強ペア: 大神ミオ 8.99% (全体126位)
-- **[姫森ルーナ](individual_luna_jp.md)** — 参加率 0.68%, 専属 21.7%, 最強ペア: 戌神ころね 10.42% (全体50位)
+- **[角巻わため](individuals_jp/individual_watame_jp.md)** — 参加率 0.55%, 専属 25.3%, 最強ペア: 大神ミオ 10.77% (全体39位)
+- **[常闇トワ](individuals_jp/individual_towa_jp.md)** — 参加率 0.45%, 専属 29.0%, 最強ペア: 大神ミオ 8.99% (全体126位)
+- **[姫森ルーナ](individuals_jp/individual_luna_jp.md)** — 参加率 0.68%, 専属 21.7%, 最強ペア: 戌神ころね 10.42% (全体50位)
 
 ## 5期生
 
-- **[雪花ラミィ](individual_lamy_jp.md)** — 参加率 0.80%, 専属 18.0%, 最強ペア: 桃鈴ねね 14.75% (全体6位)
-- **[桃鈴ねね](individual_nene_jp.md)** — 参加率 0.61%, 専属 17.8%, 最強ペア: 雪花ラミィ 14.75% (全体6位)
-- **[獅白ぼたん](individual_botan_jp.md)** — 参加率 0.41%, 専属 23.8%, 最強ペア: 大神ミオ 9.77% (全体76位)
-- **[尾丸ポルカ](individual_polka_jp.md)** — 参加率 0.36%, 専属 25.6%, 最強ペア: 鷹嶺ルイ 11.11% (全体31位)
+- **[雪花ラミィ](individuals_jp/individual_lamy_jp.md)** — 参加率 0.80%, 専属 18.0%, 最強ペア: 桃鈴ねね 14.75% (全体6位)
+- **[桃鈴ねね](individuals_jp/individual_nene_jp.md)** — 参加率 0.61%, 専属 17.8%, 最強ペア: 雪花ラミィ 14.75% (全体6位)
+- **[獅白ぼたん](individuals_jp/individual_botan_jp.md)** — 参加率 0.41%, 専属 23.8%, 最強ペア: 大神ミオ 9.77% (全体76位)
+- **[尾丸ポルカ](individuals_jp/individual_polka_jp.md)** — 参加率 0.36%, 専属 25.6%, 最強ペア: 鷹嶺ルイ 11.11% (全体31位)
 
 ## 6期生
 
-- **[鷹嶺ルイ](individual_lui_jp.md)** — 参加率 0.70%, 専属 19.2%, 最強ペア: 尾丸ポルカ 11.11% (全体31位)
-- **[博衣こより](individual_koyori_jp.md)** — 参加率 0.71%, 専属 25.1%, 最強ペア: 雪花ラミィ 11.48% (全体26位)
-- **[風真いろは](individual_iroha_jp.md)** — 参加率 0.91%, 専属 26.2%, 最強ペア: AZKi 11.85% (全体21位)
+- **[鷹嶺ルイ](individuals_jp/individual_lui_jp.md)** — 参加率 0.70%, 専属 19.2%, 最強ペア: 尾丸ポルカ 11.11% (全体31位)
+- **[博衣こより](individuals_jp/individual_koyori_jp.md)** — 参加率 0.71%, 専属 25.1%, 最強ペア: 雪花ラミィ 11.48% (全体26位)
+- **[風真いろは](individuals_jp/individual_iroha_jp.md)** — 参加率 0.91%, 専属 26.2%, 最強ペア: AZKi 11.85% (全体21位)
 
 ## ReGLOSS
 
-- **[音乃瀬奏](individual_kanade_jp.md)** — 参加率 0.88%, 専属 33.4%, 最強ペア: 一条莉々華 8.56% (全体159位)
-- **[一条莉々華](individual_ririka_jp.md)** — 参加率 0.72%, 専属 18.4%, 最強ペア: 博衣こより 9.19% (全体116位)
-- **[儒烏風亭らでん](individual_raden_jp.md)** — 参加率 0.70%, 専属 40.3%, 最強ペア: 一条莉々華 6.45% (全体368位)
-- **[轟はじめ](individual_hajime_jp.md)** — 参加率 0.60%, 専属 38.1%, 最強ペア: 音乃瀬奏 8.10% (全体195位)
+- **[音乃瀬奏](individuals_jp/individual_kanade_jp.md)** — 参加率 0.88%, 専属 33.4%, 最強ペア: 一条莉々華 8.56% (全体159位)
+- **[一条莉々華](individuals_jp/individual_ririka_jp.md)** — 参加率 0.72%, 専属 18.4%, 最強ペア: 博衣こより 9.19% (全体116位)
+- **[儒烏風亭らでん](individuals_jp/individual_raden_jp.md)** — 参加率 0.70%, 専属 40.3%, 最強ペア: 一条莉々華 6.45% (全体368位)
+- **[轟はじめ](individuals_jp/individual_hajime_jp.md)** — 参加率 0.60%, 専属 38.1%, 最強ペア: 音乃瀬奏 8.10% (全体195位)
 
 ## FLOW GLOW
 
-- **[響咲リオナ](individual_riona_jp.md)** — 参加率 1.40%, 専属 18.1%, 最強ペア: 綺々羅々ヴィヴィ 10.37% (全体53位)
-- **[水宮枢](individual_su_jp.md)** — 参加率 1.64%, 専属 26.2%, 最強ペア: 雪花ラミィ 10.90% (全体35位)
-- **[輪堂千速](individual_chihaya_jp.md)** — 参加率 1.27%, 専属 24.3%, 最強ペア: 鷹嶺ルイ 9.23% (全体111位)
-- **[綺々羅々ヴィヴィ](individual_vivi_jp.md)** — 参加率 1.32%, 専属 20.7%, 最強ペア: 兎田ぺこら 12.64% (全体14位)
+- **[響咲リオナ](individuals_jp/individual_riona_jp.md)** — 参加率 1.40%, 専属 18.1%, 最強ペア: 綺々羅々ヴィヴィ 10.37% (全体53位)
+- **[水宮枢](individuals_jp/individual_su_jp.md)** — 参加率 1.64%, 専属 26.2%, 最強ペア: 雪花ラミィ 10.90% (全体35位)
+- **[輪堂千速](individuals_jp/individual_chihaya_jp.md)** — 参加率 1.27%, 専属 24.3%, 最強ペア: 鷹嶺ルイ 9.23% (全体111位)
+- **[綺々羅々ヴィヴィ](individuals_jp/individual_vivi_jp.md)** — 参加率 1.32%, 専属 20.7%, 最強ペア: 兎田ぺこら 12.64% (全体14位)

@@ -9,7 +9,7 @@
 
 出力:
     data/plots/jp/individual_<key>/      # 図表PNG群
-    reports_jp/individual_<key>_jp.md     # Markdownレポート
+    reports_jp/individuals_jp/individual_<key>_jp.md   # Markdownレポート
 
 依存: pandas, matplotlib, scipy, numpy, pyarrow
 Python: 3.10+
@@ -123,7 +123,9 @@ def main():
 
     out_dir = Path(DATA_DIR_JP) / f"individual_{TARGET}"
     out_dir.mkdir(parents=True, exist_ok=True)
-    report_path = Path("reports_jp") / f"individual_{TARGET}_jp.md"
+    report_dir = Path("reports_jp") / "individuals_jp"
+    report_dir.mkdir(parents=True, exist_ok=True)
+    report_path = report_dir / f"individual_{TARGET}_jp.md"
 
     # --------------------------------------------------------------
     # データロード
@@ -505,14 +507,14 @@ def main():
 
     md.append(f"### 1.1 複推し数分布\n")
     md.append(f"{target_name}参加者を「同時参加した他タレント数」で集計した分布（自分含む、1=単独）。\n")
-    md.append(f"![複推し数分布](../data/plots/jp/individual_{TARGET}/multitalent_distrib.png)\n")
+    md.append(f"![複推し数分布](../../data/plots/jp/individual_{TARGET}/multitalent_distrib.png)\n")
 
     md.append("## 2. 重複ネットワーク\n")
     md.append("### 2.1 Jaccard 上位10タレント\n")
     md.append(f"{target_name}と他タレントとのペアJaccard係数（規模補正済み）。"
               f"$|A \\cap B|/|A \\cup B|$ で計算し、両タレントの規模差に依存しない結合強度を示す。"
               f"順位は全595ペア中の順位。\n")
-    md.append(f"![Jaccard 上位10](../data/plots/jp/individual_{TARGET}/jaccard_top10.png)\n")
+    md.append(f"![Jaccard 上位10](../../data/plots/jp/individual_{TARGET}/jaccard_top10.png)\n")
     md.append("| 順位 | タレント | ユニット | Jaccard | 共視聴者数 |\n|---:|---|---|---:|---:|")
     for r in target_ranks[:10]:
         md.append(f"| {r['rank']} | {r['partner_name']} | {r['partner_unit']} | "
@@ -526,7 +528,7 @@ def main():
               f"以下の散布図では、視聴者共有率（X軸）と Jaccard（Y軸）を同時にプロットする。"
               f"**右方向に位置 = 規模効果で視聴者共有率が押し上げられている**、"
               f"**上方向に位置 = 規模補正済みでも強い結合** と読める。\n")
-    md.append(f"![視聴者共有率 × Jaccard 散布図](../data/plots/jp/individual_{TARGET}/metric_scatter.png)\n")
+    md.append(f"![視聴者共有率 × Jaccard 散布図](../../data/plots/jp/individual_{TARGET}/metric_scatter.png)\n")
     md.append(f"**視聴者共有率上位15**: 巨大タレント（マリン・スバル・すいせい等）が上位を占めるのは規模効果。"
               f"その中に非巨大タレントが食い込む場合は、Jaccard でも上位にあるか確認すると規模補正済みの結合強度が判断できる。\n")
     md.append("| 順位 | タレント | 視聴者共有率 | 共視聴者数 | Jaccard |\n|---:|---|---:|---:|---:|")
@@ -606,7 +608,7 @@ def main():
         md.append(f"### 5.3 累積ユニーク参加者カーブ\n")
         md.append("古い配信から順に1本ずつ追加していった時の累積ユニーク参加者数。"
                   "カーブが早く頭打ちになるほど常連が多く、長く伸び続けるほど新規流入が多い。\n")
-        md.append(f"![累積カーブ](../data/plots/jp/individual_{TARGET}/cumulative_unique.png)\n")
+        md.append(f"![累積カーブ](../../data/plots/jp/individual_{TARGET}/cumulative_unique.png)\n")
         md.append("| 本数 | 配信日 | 配信参加者 | 累積ユニーク |\n|---:|---|---:|---:|")
         for c in stream_analysis["cumul"]:
             md.append(f"| {c['step']}本目 | {c['date']} | {c['stream_n']:,} | {c['cumul_n']:,} |")
